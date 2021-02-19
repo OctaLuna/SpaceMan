@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     //VARIABLES//    
 
 
-    /////////Variables para el salto del personaje
+    /////////Salto///////////
     //Esto es para la fuerza con la que el player va a saltar
     public float JumpForce;
     //Estamos haciendo referencia al RigidBody2D del player
