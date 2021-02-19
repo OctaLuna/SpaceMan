@@ -19,17 +19,68 @@ public class PlayerController : MonoBehaviour
     /////////Animaciones del player
     //estamos haciendo referencia a las animaciones del player
     Animator animator;
+    /////////Movimiento/////////
+    //Esto es para la velocidad del movimiento
+    public float SpeedMovement;
+
+    SpriteRenderer SpriteRenderer;
 
 
     //Es un void que se inicia cuando el juego inicia 
     private void Awake() {
         Rigidbody = GetComponent<Rigidbody2D>();    
         animator = GetComponent<Animator>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
+        
     }
 
     void Update()
     {
+        movement();
+        Jump();
+    }
 
+
+  
+  
+  
+  
+  
+  
+  
+    /////////////////FUNCIONES/////////////////
+  
+    
+    //////MOVIMIENTO//////
+    void movement(){
+        ////MOVIMIENTO////
+        //esto es para que el personaje se mueva
+        Rigidbody.velocity = new Vector2(Input.GetAxis("Horizontal") * SpeedMovement, Rigidbody.velocity.y);
+
+
+        //Esto es para que las animacion del player//
+        //0 es quieto, +1 es derecha y -1 es izquierda
+        //esto es cuando se queda quieto
+        if(Input.GetAxis("Horizontal") == 0){
+            //esto es para las animaciones de movimiento
+            animator.SetBool("isWalking", false);
+        }
+        else if(Input.GetAxis("Horizontal") > 0){
+            animator.SetBool("isWalking", true);
+            //Esto es para que el sprite del player se de la vuelta cuando va izquierda que es el siguiente else if
+            SpriteRenderer.flipX = false;
+        }
+        else if(Input.GetAxis("Horizontal") < 0){
+            animator.SetBool("isWalking", true);
+            SpriteRenderer.flipX = true;
+        }
+    }
+
+
+    //////SALTO//////
+    //Salto
+    void Jump(){
+        ////SALTO////
         //Esto es para que cuando apretemos la tecla de space se active la funcion
         if(Input.GetKeyDown(KeyCode.Space)){
             //Estamos llamando a la funcion creada 
@@ -38,22 +89,21 @@ public class PlayerController : MonoBehaviour
         }
         //
         animator.SetBool("isGround", isTouchingTheGround());    
+
+
     
-
-
-
-
-        Debug.DrawRay(this.transform.position, Vector2.down * 1.5f, Color.blue);       
+        Debug.DrawRay(this.transform.position, Vector2.down * 1.5f, Color.blue);   
     }
 
 
-    //Salto
+
     void JumpController(){
         if(isTouchingTheGround()){
         //Esto es para que el player salte
         Rigidbody.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
         }
     }
+    
 
     //Esto es para ver si el player esta tocando el suelo o no
     bool isTouchingTheGround(){
