@@ -18,9 +18,20 @@ public class GameManager : MonoBehaviour
     //currentGameState esto es el estado del juego actual
     //GameState.menu es para que inicie en el valor menu
     public GameState currentGameState = GameState.menu;
+    //Esto es para que no haya cruces entre script que este script sea unico y los script nose contraduscan
+    //GameManager estamos haciendo referencia al script actual
+    public static GameManager sharesInstance;
+
 
     //VARIABLE//
 
+    void Awake() {
+        //Esto es para que el primero que cree este sharesInstance, por eso comprueba si alguien lo cambio anteriormente
+        if(sharesInstance == null){
+            //Esto es para aclarar que este script es la instancia compartida
+            sharesInstance = this;    
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {

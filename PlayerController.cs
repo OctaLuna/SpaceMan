@@ -110,6 +110,9 @@ public class PlayerController : MonoBehaviour
         //return Physics2D.Raycast(this.transform.position, Vector2.down, 0.2f, groundMask);
         //Esto es una funcion que envia un rayo en el Vector2 dowm, y si tiene el layer groundMask se confirma
         if(Physics2D.Raycast(this.transform.position, Vector2.down, GroundDistance, groundMask)){
+            //Esto es GameManager
+            //Con esto cambiamos el estado de nuestro juego de Menu a inGame, para decir que inicio el juego    
+            GameManager.sharesInstance.currentGameState = GameState.inGame;
             return true;   
             
         }
