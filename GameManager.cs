@@ -41,17 +41,26 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Home)){
+            Debug.Log("StartGame");
+            StartGame();
+        }
+        else if(Input.GetKeyDown(KeyCode.Escape)){
+            Debug.Log("Menu");
+            BackMenu();
+        }
     }
 
+    //Esto es el inicio del juego
     public void StartGame(){
-
+        //Esto es para que inicie el juego
+        SetGameState(GameState.inGame);
     }
     public void GameOver(){
-
+        SetGameState(GameState.gameOver);
     }
     public void BackMenu(){
-
+        SetGameState(GameState.menu);
     }
 
 
