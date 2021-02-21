@@ -36,8 +36,13 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        movement();
-        Jump();
+        //Esto se iniciar si la funcion de estados de juego esta en inGame osea esta encendido
+        if(GameManager.sharesInstance.currentGameState == GameState.inGame){
+            movement();
+            Jump();
+        }
+        
+        
     }
 
 
@@ -82,7 +87,8 @@ public class PlayerController : MonoBehaviour
     void Jump(){
         ////SALTO////
         //Esto es para que cuando apretemos la tecla de space se active la funcion
-        if(Input.GetKeyDown(KeyCode.Space)){
+        //Hay 2 formas para poder llamar a la tecla de scape, una es Input.etKeyDowm(KeyCode.Space) y la otra es Input.GetButtonDown("Jump") esta es deacuerdo al InputManager
+        if(Input.GetButtonDown("Jump")){
             //Estamos llamando a la funcion creada 
             JumpController();
             Debug.Log("SALTO");        
