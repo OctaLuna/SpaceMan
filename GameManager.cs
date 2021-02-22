@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     //Esto es para que no haya cruces entre script que este script sea unico y los script nose contraduscan
     //GameManager estamos haciendo referencia al script actual
     public static GameManager sharesInstance;
+    //
+    PlayerController Player;
 
 
     //VARIABLE//
@@ -35,14 +37,17 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Player = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //
-        if(Input.GetButtonDown("Submit")){
+        //Esto es para que cuando apretemos el boton de Enter se reinicie el nivel y la segunda condicion es para que se 
+        //puede reiniciar si el estado de juego es diferente a inGame que es para que no puedas reiniciar el nivel en cualquier
+        //momento
+
+        if(Input.GetButtonDown("Submit") && currentGameState != GameState.inGame){
             Debug.Log("StartGame");
             StartGame();
         }
@@ -72,7 +77,8 @@ public class GameManager : MonoBehaviour
             //COLOCAR LA LOGICA DEL MENU
         }
         else if(newGameState == GameState.inGame){
-            //HAY QUE PREPARAR LA ESCENA PARA JUGAR    
+            //HAY QUE PREPARAR LA ESCENA PARA JUGAR 
+            Player.StartGame();   
         }
         else if(newGameState == GameState.gameOver){
             //PREPARAR EL JUEGO PARA EL GAMEOVER

@@ -22,8 +22,9 @@ public class PlayerController : MonoBehaviour
     /////////Movimiento/////////
     //Esto es para la velocidad del movimiento
     public float SpeedMovement;
-
     SpriteRenderer SpriteRenderer;
+    /////////Star Control del juego/////////
+    Vector3 startPosition; 
 
 
     //Es un void que se inicia cuando el juego inicia 
@@ -31,8 +32,9 @@ public class PlayerController : MonoBehaviour
         Rigidbody = GetComponent<Rigidbody2D>();    
         animator = GetComponent<Animator>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
-        
+        startPosition = this.transform.position;
     }
+
 
     void Update()
     {
@@ -55,7 +57,21 @@ public class PlayerController : MonoBehaviour
   
     /////////////////FUNCIONES/////////////////
   
-    
+    //////RESTAURAR NIVEL AL MORIR//////
+    //Esto es para que cuando reiniciamos el nivel todo este como estaba al inicio
+    public void StartGame(){
+        //Esto es para que la animacion de muerto se cancele y podamos seguir jugando
+        this.animator.SetBool("Die", true);
+        //invoke es para ponerle un delay a la accion es para que de un tiempo que en este caso es 0.1f para que se pueda activar la funcion
+        Invoke("RestartPosition", 0.1f);
+    }
+    //Esto es para que cuando mueras y quieras reiniciar el juego la posicion del player este donde estaba en el inicio
+    void RestartPosition(){
+        this.transform.position = startPosition;
+        this.Rigidbody.velocity = Vector2.zero;
+    }
+
+
     //////MOVIMIENTO//////
     void movement(){
         ////MOVIMIENTO////
@@ -129,7 +145,7 @@ public class PlayerController : MonoBehaviour
 
     //////MUERTE//////
     public void Die(){
-        this.animator.SetTrigger("Die"); 
+        this.animator.SetBool("Die", false); 
         //Esto es para volver el estado del juego en GameOver
         GameManager.sharesInstance.GameOver();
     }
