@@ -127,4 +127,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //////MUERTE//////
+    public void Die(){
+        this.animator.SetTrigger("Die"); 
+        //Esto es para volver el estado del juego en GameOver
+        GameManager.sharesInstance.GameOver();
+    }
+
+
 }
