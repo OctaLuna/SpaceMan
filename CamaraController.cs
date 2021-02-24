@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExitZone : MonoBehaviour
+public class CamaraController : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -14,8 +14,5 @@ public class ExitZone : MonoBehaviour
     void Update()
     {
         
-    }
-    void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log("Destrui el bloque anterior");    
     }
 }
